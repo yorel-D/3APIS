@@ -8,6 +8,9 @@ const stationRoutes = require('./routes/stationRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+
 
 const app = express();
 connectDB();
@@ -21,6 +24,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/trains', trainRoutes);
 app.use('/api/stations', stationRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.listen(5001, () => {
   console.log('Server running on port 5001');
