@@ -1,160 +1,107 @@
-Authentication Routes
-POST /api/auth/register
-* URL:bashCopier le codehttp://localhost:5000/api/auth/register
-* 
-* Request Body:
-json
-Copier le code
-{
-  "email": "user@example.com",
-  "pseudo": "username",
-  "password": "password123",
-  "role": "user" // 'admin' or 'employee' if applicable
-}
+# RailRoad API
 
-POST /api/auth/login
-* URL:bashCopier le codehttp://localhost:5000/api/auth/login
-* 
-* Request Body:
-json
-Copier le code
-{
-  "email": "user@example.com",
-  "password": "password123"
-}
+RailRoad API est une application RESTful développée avec Node.js et Express.js. Elle gère les utilisateurs, les trains, les stations et les tickets pour une plateforme de gestion de transports ferroviaires.
 
-2. User Routes
-GET /api/users/profile
-* URL:bashCopier le codehttp://localhost:5000/api/users/profile
-* 
-* Headers:
-    * Authorization: Bearer <your_jwt_token>
+## Table des matières
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Exécution](#exécution)
+- [Fonctionnalités](#fonctionnalités)
+  - [Gestion des utilisateurs](#gestion-des-utilisateurs)
+  - [Authentification](#authentification)
+  - [Gestion des trains](#gestion-des-trains)
+  - [Gestion des stations](#gestion-des-stations)
+  - [Gestion des tickets](#gestion-des-tickets)
+- [Documentation Swagger](#documentation-swagger)
+- [Tests](#tests)
 
-PUT /api/users/profile
-* URL:bashCopier le codehttp://localhost:5000/api/users/profile
-* 
-* Headers:
-    * Authorization: Bearer <your_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "email": "newuser@example.com",
-  "pseudo": "newusername",
-  "password": "newpassword123" // Optional: Only if the user wants to change their password
-}
+## Prérequis
 
-DELETE /api/users/profile
-* URL:bashCopier le codehttp://localhost:5000/api/users/profile
-* 
-* Headers:
-    * Authorization: Bearer <your_jwt_token>
+Avant de démarrer, assurez-vous d'avoir les éléments suivants installés :
 
-3. Train Routes
-GET /api/trains
-* URL:bashCopier le codehttp://localhost:5000/api/trains
-* 
+- [Node.js](https://nodejs.org/)
+- [NPM](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com/)
 
-POST /api/trains
-* URL:bashCopier le codehttp://localhost:5000/api/trains
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "name": "Train A",
-  "start_station": "Station A",
-  "end_station": "Station B",
-  "time_of_departure": "2024-10-14T09:00:00Z"
-}
+## Installation
 
-PUT /api/trains/:id
-* URL:bashCopier le codehttp://localhost:5000/api/trains/:id
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "name": "Updated Train A",
-  "start_station": "Station A",
-  "end_station": "Station C",
-  "time_of_departure": "2024-10-14T10:00:00Z"
-}
+1. Installez les dépendances du projet :
 
-DELETE /api/trains/:id
-* URL:bashCopier le codehttp://localhost:5000/api/trains/:id
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
+   ```bash
+   npm install
+   ```
 
-4. Station Routes
-GET /api/stations
-* URL:bashCopier le codehttp://localhost:5000/api/stations
-* 
+## Configuration
 
-POST /api/stations
-* URL:bashCopier le codehttp://localhost:5000/api/stations
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "name": "Station A",
-  "open_hour": "08:00",
-  "close_hour": "22:00",
-  "image": "image_url_or_base64" // For image uploads, ensure the correct format
-}
+1. Créez un fichier `.env` à la racine du projet et configurez les variables d'environnement suivantes :
 
-PUT /api/stations/:id
-* URL:bashCopier le codehttp://localhost:5000/api/stations/:id
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "name": "Updated Station A",
-  "open_hour": "08:00",
-  "close_hour": "22:00"
-}
+   ```
+   MONGODB_URI=mongodb+srv://YLD:n18ulYf1tRxECMW0@blogify-api.d8oni.mongodb.net/3API?retryWrites=true&w=majority&appName=Blogify-API
+   JWT_SECRET=your_jwt_secret
+   ```
 
-DELETE /api/stations/:id
-* URL:bashCopier le codehttp://localhost:5000/api/stations/:id
-* 
-* Headers:
-    * Authorization: Bearer <your_admin_jwt_token>
+2. Configurez les autres variables si nécessaire, comme la chaîne de connexion MongoDB.
 
-5. Ticket Routes
-POST /api/tickets
-* URL:bashCopier le codehttp://localhost:5000/api/tickets
-* 
-* Headers:
-    * Authorization: Bearer <your_user_jwt_token>
-* Request Body:
-json
-Copier le code
-{
-  "trainId": "train_id_here",
-  "userId": "user_id_here",
-  "start_station": "Station A",
-  "end_station": "Station B",
-  "date_of_travel": "2024-10-14T09:00:00Z"
-}
+## Exécution
 
-PUT /api/tickets/:id/validate
-* URL:rubyCopier le codehttp://localhost:5000/api/tickets/:id/validate
-* 
-* Headers:
-    * Authorization: Bearer <your_employee_jwt_token>
+Pour lancer l'API en mode développement :
 
-Remarques
-* Assurez-vous que le serveur fonctionne sur le port 5000 avant d'effectuer ces requêtes dans Postman.
-* Remplacez les <your_jwt_token>, <your_admin_jwt_token>, <your_user_jwt_token>, et <your_employee_jwt_token> par les tokens appropriés obtenus lors de l'authentification.
-Si vous avez besoin d'autres informations ou d'assistance supplémentaire, n'hésitez pas à demander !
+```bash
+npm run
+```
+
+L'API sera disponible à l'adresse [http://localhost:5001](http://localhost:5001).
+
+## Fonctionnalités
+
+### Gestion des utilisateurs
+
+- **Inscription** (`POST /api/auth/register`) : Crée un nouvel utilisateur avec les champs suivants : `username`, `email`, `pseudo`, `password`, et `role`.
+- **Connexion** (`POST /api/auth/login`) : Authentifie un utilisateur avec son `email` et `password`.
+- **Profil utilisateur** (`GET /api/users/profile`) : Récupère les informations de l'utilisateur connecté.
+- **Modification de profil** (`PUT /api/users/:id?`) : Un utilisateur peut modifier son profil (ou un admin peut modifier les autres utilisateurs).
+- **Suppression de compte** (`DELETE /api/users/profile`) : Permet à un utilisateur de supprimer son propre compte (token requis).
+
+### Authentification
+
+L'authentification est gérée via JWT (JSON Web Tokens). Les utilisateurs doivent fournir un token JWT valide dans l'en-tête `Authorization` pour accéder aux routes protégées.
+
+### Gestion des trains
+
+- **Lister les trains** (`GET /api/trains/`) : Accessible par tout utilisateur sans authentification. 
+- **Créer un train** (`POST /api/trains/`) : Réservé aux admins.
+- **Modifier un train** (`PUT /api/trains/:id`) : Réservé aux admins.
+- **Supprimer un train** (`DELETE /api/trains/:id`) : Réservé aux admins.
+
+### Gestion des stations
+
+- **Lister les stations** (`GET /api/stations/`) : Liste les stations avec des options de tri.
+- **Créer une station** (`POST /api/stations/`) : Réservé aux admins.
+- **Modifier une station** (`PUT /api/stations/:id`) : Réservé aux admins.
+- **Supprimer une station** (`DELETE /api/stations/:id`) : Réservé aux admins. Lorsqu'une station est supprimée, les trains liés sont également affectés.
+
+### Gestion des tickets
+
+- **Réserver un ticket** (`POST /api/tickets/`) : Les utilisateurs authentifiés peuvent réserver un ticket pour un train.
+- **Valider un ticket** (`PUT /api/tickets/:id/validate`) : Valide un ticket réservé pour un utilisateur.
+
+## Documentation Swagger
+
+L'API dispose d'une documentation générée automatiquement avec Swagger. Pour y accéder, démarrez l'application et rendez-vous sur [http://localhost:5001/api-docs](http://localhost:5001/api-docs).
+
+Le fichier `swagger-output.json` est généré automatiquement à partir des routes définies dans `app.js` et les fichiers correspondants.
+
+Pour générer la documentation Swagger à nouveau :
+
+```bash
+npm run swagger-autogen
+```
+
+## Tests
+
+Des tests unitaires sont inclus pour vérifier le bon fonctionnement de l'API. Pour exécuter les tests :
+
+```bash
+npm run test
+```
