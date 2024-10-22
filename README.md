@@ -34,7 +34,7 @@ Avant de démarrer, assurez-vous d'avoir les éléments suivants installés :
 
 ## Configuration
 
-1. Créez un fichier `.env` à la racine du projet et configurez les variables d'environnement suivantes :
+1. Créez un fichier `.env` dans le fichier Railroad et configurez les variables d'environnement suivantes :
 
    ```
    MONGODB_URI=mongodb+srv://YLD:n18ulYf1tRxECMW0@blogify-api.d8oni.mongodb.net/3API?retryWrites=true&w=majority&appName=Blogify-API
