@@ -48,7 +48,7 @@ Avant de démarrer, assurez-vous d'avoir les éléments suivants installés :
 Pour lancer l'API en mode développement :
 
 ```bash
-npm run
+npm start``
 ```
 
 L'API sera disponible à l'adresse [http://localhost:5001](http://localhost:5001).
